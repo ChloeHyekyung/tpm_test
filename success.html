@@ -1,0 +1,38 @@
+<head>
+  <meta charset="UTF-8" />
+</head>
+
+<body>
+ success
+ <script>
+  var search = window.location.search;
+  var arr = [];
+  arr.push(search.split('&'));
+
+  var paymentKey = arr[0][1].split('paymentKey=')[1];
+  //sessionStorage.paymentKey = paymentKey;
+  var amount = arr[0][2].split('amount=')[1];
+  //sessionStorage.amount = amount;
+  var orderId = sessionStorage.getItem("orderId");
+  var orgAmt = sessionStorage.getItem("orgAmt");
+
+  console.log('amount:' + amount);
+  console.log('orgAmt:' + orgAmt);
+  if( amount == orgAmt ){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        alert('success');
+        console.log(this.responseText);
+      } else if(this.readyState == 4 && this.status != 200) {
+        alert('fail');
+        console.error(this.responseText);
+      }
+    };
+    xhttp.open("POST", "https://api.tosspayments.com/v1/payments/" + paymentKey, true);
+    xhttp.setRequestHeader("Authorization", "Basic dGVzdF9za19qWjYxSk94UlFWRUFCWDV3WjF3VlcwWDliQXF3Og==");
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify({amount: amount, orderId: orderId}));
+  }
+ </script>
+</body>

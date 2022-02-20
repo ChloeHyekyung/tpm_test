@@ -1,4 +1,5 @@
 <head>
+  <meta charset="UTF-8" />
   <script src="https://js.tosspayments.com/v1"></script>
 </head>
 
@@ -21,12 +22,11 @@
     <button class="pay" onclick="javascript:payment('휴대폰')">휴대폰</button>
   </section>
   
-  
   <script>
     var clientKey = 'test_ck_BE92LAa5PVboLYqMovBr7YmpXyJj';
     var tossPayments = TossPayments(clientKey);
     var amount = document.getElementById('price');
-    var orderId = 'a-J-HlAOm0QHdbnQL4WvM';
+    var orderId = 'bnrdioHXbLdxUj2twg16u';
 
     function payment(method){
       tossPayments.requestPayment(method, {
@@ -34,9 +34,21 @@
         orderId: orderId,
         orderName: '토스 티셔츠 외 2건',
         customerName: '박토스',
-        successUrl: 'https://fiddle.jshell.net/success',
-        failUrl: 'https://fiddle.jshell.net/fail',
+        successUrl: 'https://8000-chloehyekyung-tpmtest-mx2cpk76dav.ws-us33.gitpod.io/success.html',
+        failUrl: 'https://8000-chloehyekyung-tpmtest-mx2cpk76dav.ws-us33.gitpod.io/fail.html',
+        flowMode: 'DIRECT',
+        cardCompany: '삼성',
       })
     }
+
+    sessionStorage.setItem("orderId", '');
+    sessionStorage.setItem("orderId", orderId);
+    sessionStorage.setItem("orgAmt", '');
+    sessionStorage.setItem("paymentKey", '');
+    sessionStorage.setItem("amount", '');
+    // 텍스트 입력 칸의 변화 수신
+    amount.addEventListener("change", function() {
+      sessionStorage.setItem("orgAmt", amount.value);
+    });
   </script>
 </body>
