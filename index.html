@@ -26,11 +26,12 @@
     var clientKey = 'test_ck_BE92LAa5PVboLYqMovBr7YmpXyJj';
     var tossPayments = TossPayments(clientKey);
     var amount = document.getElementById('price');
+    var orderId = 'a-J-HlAOm0QHdbnQL4WvM';
 
     function payment(method){
       tossPayments.requestPayment(method, {
         amount: amount.value,
-        orderId: 'a-J-HlAOm0QHdbnQL4WvM',
+        orderId: orderId,
         orderName: '토스 티셔츠 외 2건',
         customerName: '박토스',
         successUrl: 'https://fiddle.jshell.net/success',
