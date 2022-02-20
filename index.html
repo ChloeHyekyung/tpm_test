@@ -3,6 +3,16 @@
 </head>
 
 <body>
+  <style>
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input{ width:300px; border:0; border-bottom:1px #a8a8a8 solid; margin:0 10px 0; padding:0; height:40px; line-height:40px; outline: none; }
+    .test{ display:flex; flex-direction:column; justify-content: center; align-items: center; height:100vh; }
+    button{ width: 300px; height:40px; background-color:#ffffff; border:1px #a8a8a8 solid; color:black; display:flex; align-items: center; justify-content: center; cursor:pointer; margin-top:20px; }
+  </style>
   <section class="test">
     <input type="number" placeholder="금액 입력" id="price" value="javascript:this.text">
     <button class="pay" onclick="javascript:payment('카드')">카드결제</button>
@@ -10,4 +20,22 @@
     <button class="pay" onclick="javascript:payment('계좌이체')">계좌이체</button>
     <button class="pay" onclick="javascript:payment('휴대폰')">휴대폰</button>
   </section>
+  
+  
+  <script>
+    var clientKey = 'test_ck_BE92LAa5PVboLYqMovBr7YmpXyJj';
+    var tossPayments = TossPayments(clientKey);
+    var amount = document.getElementById('price');
+
+    function payment(method){
+      tossPayments.requestPayment(method, {
+        amount: amount.value,
+        orderId: 'a-J-HlAOm0QHdbnQL4WvM',
+        orderName: '토스 티셔츠 외 2건',
+        customerName: '박토스',
+        successUrl: 'https://fiddle.jshell.net/success',
+        failUrl: 'https://fiddle.jshell.net/fail',
+      })
+    }
+  </script>
 </body>
